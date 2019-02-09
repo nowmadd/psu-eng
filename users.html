@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <title>Users</title>
+        <link rel="stylesheet" href="css/icons.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+    </head>
+    <body class="bg-light3">
+        
+        <div id="app">
+
+            <div class="my-row bg-blue padding wrap">
+                <div class="my-col-12">
+                    <div class="main_logo">
+                        <img class="main_logo_img" src="img/psu_logo.png">
+                    </div>
+                    <div class="header text-white text-shadow-dark">
+                        <!-- <p>PSU Engineering Works and Progress</p> -->
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar navbar-inverse shadow-up">
+              <div class="container-fluid bg-blue">
+                <ul class="nav navbar-nav navbar-right">
+                     <li>
+                        <a href="/ongoing" class="text-white hover-white hover-text-blue" data-toggle="tooltip" data-placement="top" title="Ongoing Projects">
+                            <i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">folder</i> Ongoing Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/finish" class="text-white hover-white hover-text-blue" data-toggle="tooltip" data-placement="top" title="Finished Projects">
+                            <i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">check</i> Finished Projects
+                        </a>
+                    </li>
+                    <li v-if="user.type=='admin'">
+                        <a href="new_file.html" class="text-white hover-white hover-text-blue" data-toggle="tooltip" data-placement="top" title="Add new Project">
+                            <i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">add_box</i> New Project
+                        </a>
+                    </li> 
+                    <li v-if="user.type=='admin'">
+                        <a href="#" class="active_menu" data-toggle="tooltip" data-placement="top" title="Users">
+                            <i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">group</i> Users
+                        </a>
+                    </li>
+                     <li id="nav">
+                        <div class="my-dropdown">
+                            <button class="dropbtn"> {{user.username}}
+                                <i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">account_circle</i>
+                                <i class="material-icons" style="position:relative; transform: rotate(-90deg); top:7px;margin-top:-10px;">chevron_left</i>
+                            </button>
+                            <div class="my-dropdown-content">
+                                <a href="profile.html" class="button-block border-bottom hover-text-white hover-blue">Profile</a>
+                                <a href="#" @click="logout" class="button-block border-bottom hover-text-white hover-blue">Logout</a>
+                            </div>
+                        </div> 
+                    </li>
+                </ul>
+              </div>
+            </nav>
+            
+            <!-- Content -->
+            <div class="my-content padding-30">
+                
+                <div class="card">
+
+                    <div class="card-header">
+                        <div class="my-row">
+                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">search</i></span>
+                                    <input @input="onSearch($event.target.value)" id="search" type="text" class="form-control" name="search" placeholder="Search..">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <div class="align-left">
+                                    <span class="btn btn-default text-white bg-green shadow-hover open-modal" open-modal='addUser'><i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">add_box</i> Add User </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">                        
+                        <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th><p class="text">Id</p></th>
+                                <th><p class="text">Username</p></th>
+                                <th><p class="text">First Name</p></th>
+                                <th><p class="text">Middle Initial</p></th>
+                                <th><p class="text">Last Name</p></th>
+                                <th><p class="text">Campus</p></th>
+                                <th><p class="text">Type</p></th>
+                                <th><p class="text">Action</p></th>
+                              </tr>
+                            </thead>
+                            <tbody v-if="accounts.length > 0">
+                              <tr v-for="item in accounts">
+                                <td>
+                                    <div>                                      
+                                        <p class="text">{{item.account_id}}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div v-if="action=='edit' && edit_id==item.account_id" >
+                                            <input @input="item.username=$event.target.value" type="text" name="edit_username" :value="item.username">
+                                        </div>
+                                        <div v-else>
+                                            <p class="text">{{item.username}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div v-if="action=='edit' && edit_id==item.account_id" >
+                                            <input @input="item.f_name=$event.target.value" type="text" name="edit_f_name" :value="item.f_name">
+                                        </div>
+                                        <div v-else>
+                                            <p class="text">{{item.f_name}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div v-if="action=='edit' && edit_id==item.account_id" >
+                                            <input @input="item.m_name=$event.target.value" type="text" name="edit_m_name" :value="item.m_name">
+                                        </div>
+                                        <div v-else>
+                                            <p class="text">{{item.m_name}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span>
+                                        <div v-if="action=='edit' && edit_id==item.account_id" >
+                                            <input @input="item.l_name=$event.target.value" type="text" name="edit_l_name" :value="item.l_name">
+                                        </div>
+                                        <div v-else>
+                                            <p class="text">{{item.l_name}}</p>
+                                        </div>
+                                    </span>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div v-if="action=='edit' && edit_id==item.account_id" >
+                                            <select @input="item.campus=$event.target.value" name="edit_campus" :value="item.campus">
+                                                <option>Lingayen</option>
+                                                <option>Lingayen West</option>
+                                                <option>Asingan</option>
+                                                <option>Alaminos</option>
+                                                <option>Bayambang</option>
+                                                <option>Binmaley</option>
+                                                <option>Infanta</option>
+                                                <option>San Carlos</option>
+                                                <option>Sta. Maria</option>
+                                                <option>Urdaneta</option>
+                                            </select>
+                                        </div>
+                                        <div v-else>
+                                            <p class="text">{{item.campus}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span>
+                                        <div v-if="action=='edit' && edit_id==item.account_id" >
+                                            <select @input="item.type=$event.target.value" name="edit_type" :value="item.type">
+                                                <option>User</option>
+                                                <option>Admin</option>
+                                            </select>
+                                        </div>
+                                        <div v-else>
+                                            <p class="text">{{item.type}}</p>
+                                        </div>
+                                    </span>
+                                </td>
+                                <td colspan="4" style="min-width: 80px;">
+                                    <div class="my-row">
+                                        <div v-if="action=='edit' && edit_id==item.account_id" >
+                                            <a class="btn btn-default text-white bg-green shadow-hover" @click="updateUser(item)">
+                                                <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">check</i>
+                                            </a>
+                                        </div>
+                                        <div v-else>
+                                            <a class="my-col-6 btn btn-default text-white bg-green shadow-hover" @click="editUser(item)">
+                                                <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">edit</i>
+                                            </a>
+                                            <a class="my-col-6 btn btn-default text-white bg-red shadow-hover open-modal" open-modal="deleteUser" @click="deleteUser(item)">
+                                                <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">delete</i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                            <tbody v-else>
+                                <tr>
+                                    <td colspan="8">
+                                        <p class="block align-center">
+                                            "No records found!"
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <!-- Form for adding a user -->
+                <div class="my-modal" modal-name="addUser" >
+                    <div class="my-modal-content">
+                        <span class="close close-modal">&times;</span>
+                        <div class="my-modal-header">
+                            <p>Add User </p>
+                        </div>
+                        <div class="my-modal-body">
+                            <div class="my-row">
+                                <div class="my-col-4">
+                                    <label>Username</label>
+                                    <input type="text" name="username" placeholder="Enter username here." @input="onAdd.username=$event.target.value" :value="onAdd.username">
+                                    <!-- <p class="text text-red">Not available!</p> -->
+                                </div>
+                                <div class="my-col-4">
+                                    <label>Password</label>
+                                    <input type="password" name="password" placeholder="Enter password here." @input="onAdd.password=$event.target.value" :value="onAdd.password">
+                                </div>
+                                <div class="my-col-4">
+                                    <label>Retype Password</label>
+                                    <input type="password" name="retype_password" placeholder="Retype Password." @input="onAdd.retype_password=$event.target.value" :value="onAdd.retype_password">
+                                </div>
+                            </div>
+                            <div class="my-row"> 
+                                <div class="my-col-5">
+                                    <label>First Name</label>
+                                    <input type="text" name="f_name" placeholder="Enter first name." @input="onAdd.f_name=$event.target.value" :value="onAdd.f_name">
+                                </div>
+                                <div class="my-col-1">
+                                    <label>M.I.</label>
+                                    <input type="text" name="m_name" placeholder="M.I." @input="onAdd.m_name=$event.target.value" :value="onAdd.m_name">
+                                </div>
+                                <div class="my-col-6">
+                                    <label>Last Name</label>
+                                    <input type="text" name="l_name" placeholder="Enter last name." @input="onAdd.l_name=$event.target.value" :value="onAdd.l_name">
+                                </div>
+                            </div>
+                            <div class="my-row"> 
+                                <div class="my-col-3">
+                                    <label class="text">Campus</label>
+                                    <select name="campus" @input="onAdd.campus=$event.target.value" :value="onAdd.campus">
+                                        <option>Lingayen</option>
+                                        <option>Lingayen West</option>
+                                        <option>Asingan</option>
+                                        <option>Alaminos</option>
+                                        <option>Bayambang</option>
+                                        <option>Binmaley</option>
+                                        <option>Infanta</option>
+                                        <option>San Carlos</option>
+                                        <option>Sta. Maria</option>
+                                        <option>Urdaneta</option>
+                                    </select>
+                                </div>
+                                <div class="my-col-3">
+                                    <label class="text">Type</label>
+                                    <select name="type" @input="onAdd.type=$event.target.value" :value="onAdd.type">
+                                        <option>User</option>
+                                        <option>Admin</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="my-modal-footer">
+                                <button class="btn btn-default text-white bg-green shadow-hover margin-10 close-modal" @click="addUser">
+                                    <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">add_box</i> Save User 
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="deleteUser"></div>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="my-footer">
+                <p>Pangasinan State University <i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">devices</i> 09123456789</p>
+            </div>
+        </div>
+
+        <!-- Frameworks -->
+        <script src="libs/vue/vue.min.js"></script>
+        <script src="libs/jquery.min.js"></script>
+        <script src="libs/bootstrap.min.js"></script>
+        <script src="libs/util.js"></script>
+        <script src="libs/date.js"></script>
+
+        <!-- Your custom JS here -->
+        <script src="js/app.js"></script>
+        <script src="js/users.js"></script>
+    </body>
+</html>

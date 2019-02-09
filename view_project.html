@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <title>Details</title>
+        <link rel="stylesheet" href="css/icons.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="libs/dist/frappe-gantt.css" />
+        <link rel="stylesheet" href="libs/framework7/css/framework7.min.css">
+        <script src="libs/dist/frappe-gantt.js"></script>
+    </head>
+    <body class="bg-light3">
+        
+        <div id="app">
+            <div class="view view-main">
+                <div class="page">
+                    <div class="page-content">
+
+                        <div class="my-row bg-blue padding wrap">
+                            <div class="my-col-12">
+                                <div class="main_logo">
+                                    <img class="main_logo_img" src="img/psu_logo.png">
+                                </div>
+                                <div class="header text-white text-shadow-dark">
+                                    <p>PSU Engineering Works and Progress</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="navbar bg-blue shadow-up">
+                            <div class="navbar-inner">
+                                <div class="left">
+                                    <a href="#" @click="back" class="link">
+                                        <i class="icon icon-back"></i>
+                                        <span>Back</span>
+                                    </a>
+                                </div>
+                                <div class="title text-white" style="font-size:20px;">
+                                    {{proj_name}} building @ {{campus}}
+                                </div>
+                                <div class="right">
+                                    <a href="index.html" class="link external">
+                                        <i class="icon material-icons">home</i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Content -->
+                        <div class="my-content">
+
+                            <!-- Popup for new activity form -->
+                            <div class="popup" id="newActivity">
+                                <div class="view">
+                                    <div class="page">
+                                        <!-- Sheet Modal Toolbar, optional -->
+                                        <div class="toolbar">
+                                            <div class="toolbar-inner">
+                                                <div class="sub-title text-white" style="padding-left: 20px;">New Activity</div>
+                                                <div class="right">
+                                                    <a href="#" class="link popup-close">
+                                                        <i class="material-icons">close</i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="page-content">
+                                            <!-- Sheet Modal Inner -->
+                                            <div class="popup-modal-inner">
+                                                <!-- Sheet Modal content -->
+                                                <form id="file-form" action="#" method="post">                                
+                                                    <div class="align-center grid-7 padding-20">
+                                                        <img id="thumbnail" src="photos/default.jpg" class="round-corner" width="100%">
+                                                        <label class="button button-fill">
+                                                            <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">photo</i> 
+                                                            Select Image
+                                                            <input id="fileInput" type="file" name="img" style="display: none;" accept=".jpg, .png">    
+                                                        </label>
+                                                        <p class="text text-blue" id="fileLabel"> </p>
+                                                        <p class="text">Upload current photo of the activity</p>
+                                                    </div>
+
+                                                    <div class="list">
+                                                      <ul>
+                                                        
+                                                        <li class="item-content item-input">
+                                                          <div class="item-inner">
+                                                            <div class="item-title item-label">Activity Name</div>
+                                                            <div class="item-input-wrap">
+                                                                <input type="text" id="activity_name" name="activity_name" placeholder="Enter Activity Name">
+                                                              <span class="input-clear-button"></span>
+                                                            </div>
+                                                          </div>
+                                                        </li>
+                                                         
+                                                        <li class="item-content item-input">
+                                                          <div class="item-inner">
+                                                            <label class="item-title item-label">Start Date</label>
+                                                            <div class="item-input-wrap">
+                                                                <input type="date" :min="today" :value="today" name="start_date">
+                                                              <span class="input-clear-button"></span>
+                                                            </div>
+                                                          </div>
+                                                        </li>
+
+                                                        <li class="item-content item-input">
+                                                          <div class="item-inner">
+                                                            <label class="item-title item-label">Target Date</label>
+                                                            <div class="item-input-wrap">
+                                                                <input type="date" :min="tomorrow" :value="monthLater" name="target_date">
+                                                              <span class="input-clear-button"></span>
+                                                            </div>
+                                                          </div>
+                                                        </li>
+
+                                                      </ul>
+
+                                                    </div>
+                                                    
+                                                </form>
+                                                <div class="block">
+                                                    <button class="button button-fill close-modal" @click="newActivity">
+                                                        <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">save</i> Save Project Activity
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <!-- Popup for activity progress update form -->
+                            <div class="popup" id="newProgress">
+                                <div class="view">
+                                    <div class="page">
+                                        <!-- Sheet Modal Toolbar, optional -->
+                                        <div class="toolbar">
+                                            <div class="toolbar-inner">
+                                                <div class="sub-title text-white" style="padding-left: 20px;">Update Activity Progress</div>
+                                                <div class="right">
+                                                    <a href="#" class="link popup-close">
+                                                        <i class="material-icons">close</i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Sheet Modal Inner -->
+                                        <div class="page-content">
+                                            <!-- Sheet Modal content -->
+                                            <form id="file-form1" action="#" method="post">                                
+                                                <div class="align-center grid-6 padding-20">
+                                                    <img id="thumbnail1" src="photos/default.jpg" class="round-corner" width="100%">
+                                                    <p class="text text-blue" id="fileLabel1"> </p>
+                                                    <label class="button button-fill">
+                                                        <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">photo</i> 
+                                                        Select Image
+                                                        <input id="fileInput1" type="file" name="img" style="display: none;" >    
+                                                    </label>
+                                                    <p class="text">Upload current photo of the progress of the activity</p>
+                                                </div>
+                                                <div class="list">
+                                                  <ul>
+                                                    
+                                                    <li class="item-content item-input">
+                                                      <div class="item-inner">
+                                                        <div class="item-title item-label">Remarks</div>
+                                                        <div class="item-input-wrap">
+                                                            <textarea name="remarks" placeholder="Enter your remarks here.."></textarea>
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                      </div>
+                                                    </li>
+
+                                                    <li class="item-content item-input">
+                                                      <div class="item-inner">
+                                                        <label class="item-title item-label">Current Progress</label>
+                                                        <div class="item-input-wrap">
+                                                            <input type="number" :min="currentActivityProgress" :value="currentActivityProgress" name="progress">
+                                                          <span class="input-clear-button"></span>
+                                                        </div>
+                                                      </div>
+                                                    </li>
+                                                     
+                                                    <li class="item-content item-input">
+                                                      <div class="item-inner">
+                                                        <label class="item-title item-label">Date updated progress(default is today)</label>
+                                                        <div class="item-input-wrap">
+                                                            <input type="date" :min="today" :value="today" name="date_checked">
+                                                        </div>
+                                                      </div>
+                                                    </li>
+
+                                                  </ul>
+
+                                                </div>
+                                                
+                                            </form>
+                                            <div class="block">
+                                                <button class="button button-fill close-modal" @click="updateActivity">
+                                                    <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">save</i> Save Project Activity
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-light2 padding-30">
+                                <div class="row">
+                                    <div class="col-100 tablet-65 desktop-65">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <p>Model</p>
+                                            </div>
+                                            <div class="card-content" style="cursor: pointer;">
+                                                <div class="img-container" :style="showImg(building.model_img)" @click="openGallery(building.model_img)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-100 tablet-35 desktop-35">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <p>Details</p>
+                                            </div>
+                                            <div class="card-content">
+                                                <p class="text">Project Name: <b>{{building.proj_name}}</b></p>
+                                                <p class="text">Campus: <b>{{building.campus}}</b></p>
+                                                <p class="text">Contractor: <b>{{building.contractor}}</b></p>
+                                                <p class="text">Source of Fund: <b>{{building.src_fund}}</b></p>
+                                                <p class="text">Initial Fund: <b>{{formatHundreds(building.init_fund)}}</b></p>
+                                                <p class="text">Date Started: <b>{{date.getDate({customDate:building.start_date, format:"a"})}}</b></p>
+                                                <p class="text">Date Finished: <b>{{getFinishDate(tmpBuilding.finish_date)}}</b></p>
+                                                <p class="text">Target Date: <b>{{date.getDate({customDate:building.target_date,format:"a"})}}</b></p>
+                                                <p class="text">Duration: <b>{{date.getDuration(building.start_date, building.target_date) }} days</b></p>
+                                                <p class="text">Status: <b>{{tmpBuilding.status}}</b></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="padding-30">
+                                
+                                <div class="card">
+
+                                    <div class="card-header">
+                                        <p>Progress</p>
+                                    </div>
+                                    <div class="card-content">
+                                        <p>{{Math.round(building.progress)}}% Complete</p>
+                                        <div class="bg-light-green" style="width: 100%;border-radius:5px;overflow:hidden;height: 20px;">
+                                            <span :style="setWidth(building.progress)"></span>
+                                        </div>
+                                   </div>
+                                </div>
+
+                                <div class="card">
+                                    
+                                    <div class="card-header">
+                                        <p>Activities</p>
+                                        <div v-if="(building.progress<100) && user.type=='admin'" class="align-right">
+                                            <button class="col button button-fill popup-open" data-popup="#newActivity">
+                                                <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">add_box</i> New Project Activity    
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-content">
+
+                                        <div class="data-table" style="margin: auto;">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                  <tr>
+                                                    <th class="grid-25">Activity Name</th>
+                                                    <th class="grid-25">Start Date</th>
+                                                    <th class="grid-25">Target Date</th>
+                                                    <th class="grid-25">Finished Date</th>
+                                                    <th class="grid-2">Progress</th>
+                                                    <th class="grid-25">Action</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody v-if="activity.length>0">
+                                                  <tr v-for="act in activity">
+                                                    <td class="grid-25">{{act.activity_name}}</td>
+                                                    <td class="grid-25">{{date.getDate({customDate:act.start_date, format:"a"})}}</td>
+                                                    <td class="grid-25">{{date.getDate({customDate:act.target_date, format:"a"})}}</td>
+                                                    <td class="grid-25">{{getFinishDate(act.finish_date)}}</td>
+                                                    <td class="grid-15">{{act.progress}}%</td>
+                                                    <td class="grid-25" v-if="user.type=='admin'">
+                                                        <div class="segmented" style="min-width: 150px;">
+                                                            <button class="button button-fill popup-open" data-popup="#newProgress" v-if="act.finish_date==''" @click="updateActivityProgress(act)">
+                                                                <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;" >update</i>
+                                                            </button>
+                                                            <button class="button button-fill color-orange" @click="openProgressImages(act)">
+                                                                <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">photo</i>
+                                                            </button> 
+                                                            <button class="button button-fill color-red" v-if="act.finish_date==''" @click="deleteActivity(act.activity_id)">
+                                                                <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">delete</i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                    <td class="grid-25" v-if="user.type=='User'|| user.type=='user'">
+                                                            <button class="button button-fill color-orange" @click="openProgressImages(act)">
+                                                                <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">photo</i>
+                                                            </button> 
+                                                        </div>
+                                                    </td>
+                                                  </tr>
+                                                </tbody>
+                                                <tbody v-else>
+                                                  <tr>
+                                                      <th colspan="6" style="text-align: center;"> Nothing to show </th>
+                                                  </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="padding-30 bg-light2">
+                                <div class="sub-title">Gantt Chart
+                                <div class="card">
+                                    <div class="card-header">
+                                        <p>Displaying by Month</p>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="gantt-target"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="my-footer">
+                            <p>Pangasinan State University ||<i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">smartphone</i> 09123456789</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Frameworks -->
+        <script src="libs/framework7/js/framework7.min.js"></script>
+        <script src="libs/vue/vue.min.js"></script>
+        <script src="libs/jquery.min.js"></script>
+        <script src="libs/util.js"></script>
+        <script src="libs/date.js"></script>
+
+        <!-- Your custom JS here -->
+        <script src="js/app.js"></script>
+        <script src="js/view_project.js"></script>
+    </body>
+</html>

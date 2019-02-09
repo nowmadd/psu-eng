@@ -1,0 +1,2 @@
+CREATE DATABASE 'db_eng' before running the website.
+Configure the variable 'hosting' inside app.js before running the website. the hosting website should be relative to the current url of the website or file location to the server.
