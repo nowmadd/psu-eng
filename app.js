@@ -26,8 +26,6 @@ app.listen(port, function(){
 
 
 
-
-
 const con = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -61,7 +59,6 @@ app.get('/ongoing', function(req, res){
             items : result 
         });  
     });
-
 });
 
 
