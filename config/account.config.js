@@ -1,0 +1,4 @@
+config = {};
+
+
+module.exports=config;

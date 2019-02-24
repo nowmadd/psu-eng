@@ -1,0 +1,88 @@
+<% include ../partials/header %>
+
+<div class="padding-30 grid-9 center">
+                    <div class="card">
+                        <div class="card-header">
+                            <p>New Project</p>
+                            <p class="text">Fill in the following.</p>
+                        </div>
+
+                        <div class="card-content">
+                            <form id="file-form" action="/add-new" method="post">                                
+                                <div class="align-center grid-6">
+                                    <img id="thumbnail" src="photos/default.jpg" class="round-corner" width="100%">
+                                    <label>
+                                        <a class="btn btn-default text-white bg-blue shadow-hover margin-10">
+                                            <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">photo</i> 
+                                            Select Image
+                                            <input id="fileInput" type="file" name="img" style="display: none;" accept=".jpg, .png">    
+                                        </a>
+                                    </label>
+                                    <p class="text text-blue" id="fileLabel"> </p>
+                                    <p class="text">Upload a blueprint or a model for the project</p>
+                                </div>
+                                <div class="my-row">                                
+                                    <div class="my-col-6">
+                                        <label class="text">Project Name</label>
+                                        <input required type="text" name="proj_name" placeholder="Enter project name.">
+                                    </div>
+                                    <div class="my-col-6">
+                                        <label class="text">Contractor</label>
+                                        <input required type="text" name="contractor" placeholder="Enter project contractor.">
+                                    </div>
+                                </div>
+                                <div class="my-row">                                
+                                    <div class="my-col-4">
+                                        <label class="text">Campus</label>
+                                        <select name="campus" required>
+                                            <option>Lingayen</option>
+                                            <option>Lingayen West</option>
+                                            <option>Asingan</option>
+                                            <option>Alaminos</option>
+                                            <option>Bayambang</option>
+                                            <option>Binmaley</option>
+                                            <option>Infanta</option>
+                                            <option>San Carlos</option>
+                                            <option>Sta. Maria</option>
+                                            <option>Urdaneta</option>
+                                        </select>
+                                    </div>
+                                    <div class="my-col-4">
+                                        <label class="text">Source of Fund</label>
+                                         <select name="src_fund" required>
+                                            <option>Income</option>
+                                            <option>GAA</option>
+                                            <option>SVP</option>
+                                        </select>
+                                    </div>
+                                    <div class="my-col-4">
+                                        <label class="text">Initial Fund</label>
+                                        <input type="number" name="init_fund" required placeholder="Enter initial fund.">
+                                    </div>
+                                </div>
+                                <div class="my-row">                                
+                                    <div class="my-col-4">
+                                        <label class="text">Note to Proceed</label>
+                                        <input @input="getDuration(target_date,$event.target.value)" type="date" max="" :value="start_date" id="start_date" required name="start_date">
+                                    </div>
+                                    <div class="my-col-4">
+                                        <label class="text">Target Date</label>
+                                        <input @input="getDuration($event.target.value,start_date)" type="date" :min="start_date" required :value="target_date" name="target_date">
+                                    </div>
+                                    <!--
+                                    <div class="my-col-4">
+                                        <label class="text">Duration</label>
+                                        <input type="text" name="duration" @input="validate" :value="duration" disabled>
+                                    </div> -->
+                                </div>
+
+                                <button class="btn btn-lg text-white  bg-green btn-block text-uppercase" type="submit"> <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">save</i>  SAVE PROJECT</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>              
+
+
+
+<% include ../partials/footer %>

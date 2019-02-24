@@ -1,0 +1,47 @@
+<% include ../partials/header %>
+<!-- if building is not empty -->
+<div>
+                    <div class="my-row">
+
+                    <% if(items.length > 0) { 
+                        items.forEach(function(item, index){ %>
+                            <div class="col-lg-4 padding-20 col-md-6 col-sm-12">
+                            <a href="view/<%= item.proj_id %>" style="text-decoration: none;">
+                                    <div class="card shadow-hover">
+                                        <% 
+                                        var imagelocation =  '../../' + item.model_img;
+                                        console.log(imagelocation) %>
+                                        <!-- <div class="img-container" :style="showImg(item.model_img)"></div> -->
+                                        <img class="imagecontainer"  src="<%= imagelocation %>">
+                                    
+                                        <div class="card-content">
+                                            <p class="sub-title text-blue"><%= item.proj_name %></p>
+                                            <p class="detail"><%= item.campus %></p>
+                                        </div>
+                                        <div class="card-footer padding-side-50">
+                                            <a href="view/<%= item.proj_id %>" class="btn btn-block btn-default text-white bg-green shadow-hover">
+                                                <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">list</i>  View
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div></a>
+                                <% }); %>
+                    <% } else { 
+                    %>
+                       <P> No Data Found. </P>
+                    
+
+
+                    <% }%> 
+
+                
+                   </div> <!--row-->
+</div>
+
+
+<!-- else -->
+
+
+
+
+<% include ../partials/footer %>

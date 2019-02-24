@@ -1,0 +1,53 @@
+<div id="app">
+<div class="my-row bg-blue padding wrap">
+<div class="my-col-12">
+    <div class="main_logo">
+        <img class="main_logo_img" src="img/psu_logo.png">
+    </div>
+    <div class="header text-white text-shadow-dark">
+        <p>PSU Engineering Works and Progress</p>
+    </div>
+</div>
+</div>
+<nav class="navbar navbar-inverse shadow-up">
+<div class="container-fluid bg-blue">
+  <ul class="nav navbar-nav navbar-right">
+      <li>
+      <a href="/ongoing" class="text-white hover-white hover-text-blue" data-toggle="tooltip" data-placement="top" title="ongoing">
+          <i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">folder</i>  
+          Ongoing Projects
+          </a>
+      </li>
+       <li>
+          <a href="/finished" class="text-white hover-white hover-text-blue" data-toggle="tooltip" data-placement="top" title="Finished Projects">
+             <i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">check</i>
+              Finished Projects
+          </a>
+      </li>
+      <li v-if="user.type=='admin'">
+          <a href="/add-new" class="text-white hover-white hover-text-blue" data-toggle="tooltip" data-placement="top" title="Add new Project">
+              <i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">add_box</i>
+              New Project
+          </a>
+      </li>
+      <li v-if="user.type=='admin'">
+          <a href="/users" class="text-white hover-white hover-text-blue" data-toggle="tooltip" data-placement="top" title="Users">
+             <i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">group</i>
+               Users
+          </a>
+      </li>
+      <li>
+          <div class="my-dropdown">
+              <button class="dropbtn"> 
+                 <i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">account_circle</i>
+                  <i class="material-icons" style="position:relative; transform: rotate(-90deg); top:7px;margin-top:-10px;">chevron_left</i>
+              </button>
+              <div class="my-dropdown-content">
+                  <a href="/profile" class="button-block border-bottom hover-text-white hover-blue">Profile</a>
+                  <a href="/logout"  class="button-block border-bottom hover-text-white hover-blue">Logout</a>
+              </div>
+          </div> 
+      </li>
+  </ul>
+</div>
+</nav>

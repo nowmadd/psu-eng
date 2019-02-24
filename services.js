@@ -3,4 +3,3 @@ global.sucessModel = {
     message: ''
 
 }
-module.exports = sucessModel;

@@ -1,0 +1,67 @@
+<html>
+    <% include ../partials/head %>
+    <body>
+    <div class="login-form my-content">
+
+                <div class="card">
+                    <div class="my-row bg-blue">
+                        <div class="my-col-4">
+                            <div class="logo">
+                                <img class="logo_img" src="img/psu_logo.png">
+                            </div>
+                        </div>
+                        <div class="my-col-8">
+                            <div class="card-title text-white text-shadow-dark details" style="margin-top: 10px;">
+                                <p class="title">PSU</p>
+                                <p class="title">Engineering</p>
+                                <p class="title">Works and Progress</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shadow-up">
+                        <div class="card-header">
+                            <p class="title">Sign In</p>
+                            <p class="sub-title">Sign in to be able to view data.</p>
+                        </div>
+
+                        <div class="card-content">
+                            <form>
+                                <div class="my-row">
+                                    <!-- <span class="warning align-center">User doesn't exist!</span> -->
+                                    <div class="my-col-12 group">
+                                        <div class="my-col-3 label">
+                                            <label>Username <i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">person</i></label>
+                                        </div>
+                                        <div class="my-col-9">
+                                            <input   type="text" name="username" id="username" placeholder="Enter your username.">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="my-col-12 group">
+                                        <div class="my-col-3 label">
+                                            <label>Password <i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">lock</i></label>
+                                        </div>
+                                        <div class="my-col-9">
+                                            <input  name="password" id="password" placeholder="Enter your password.">
+                                            <!-- <span class="warning" v-if="invalidPassword">Incorrect Password!</span> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <%  if(msg!==''){ %>
+                                <span class="warning" v-if="invalid ">Incorrect username or password!</span>
+                                <% } %>
+                            </form>
+                            <br>
+                            <p class="align-center text text-blue">No account? Contact admin for registration.</p>
+                        </div>
+                        <div class="card-footer">
+                            <div @click="login" class="button button-block bg-blue">Sign In <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">chevron_right</i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+    </body>
+</html>

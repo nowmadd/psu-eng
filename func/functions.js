@@ -1,0 +1,4 @@
+func = {}
+
+
+module.exports = func;
