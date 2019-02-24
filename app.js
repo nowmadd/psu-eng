@@ -1,0 +1,1 @@
+const sucessModel = require('./services')

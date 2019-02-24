@@ -22,6 +22,7 @@
   "homepage": "https://github.com/nowmadd/psu-eng#readme",
   "dependencies": {
     "ejs": "^2.6.1",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "express-session": "^1.15.6"
   }
 }
