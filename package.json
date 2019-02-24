@@ -1,0 +1,27 @@
+{
+  "name": "psu-eng",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nowmadd/psu-eng.git"
+  },
+  "keywords": [
+    "psu",
+    "engineering"
+  ],
+  "author": "Rey Malicdem",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nowmadd/psu-eng/issues"
+  },
+  "homepage": "https://github.com/nowmadd/psu-eng#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4"
+  }
+}
