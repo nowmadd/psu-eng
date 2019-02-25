@@ -21,10 +21,14 @@
   },
   "homepage": "https://github.com/nowmadd/psu-eng#readme",
   "dependencies": {
+    "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
+    "date-format-lite": "^17.7.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
-    "mysql": "^2.16.0"
+    "moment": "^2.24.0",
+    "mysql": "^2.16.0",
+    "promise-mysql": "^3.3.1"
   }
 }

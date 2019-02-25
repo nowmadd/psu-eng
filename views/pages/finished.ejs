@@ -6,12 +6,11 @@
                     <% if(items.length > 0) { 
                         items.forEach(function(item, index){ %>
                             <div class="col-lg-4 padding-20 col-md-6 col-sm-12">
-                            <a href="view/<%= item.proj_id %>" style="text-decoration: none;">
+                            <a href="view?id=<%= item.proj_id %>" style="text-decoration: none;">
                                     <div class="card shadow-hover">
                                         <% 
                                         var imagelocation =  '../../' + item.model_img;
                                         console.log(imagelocation) %>
-                                        <!-- <div class="img-container" :style="showImg(item.model_img)"></div> -->
                                         <img class="imagecontainer"  src="<%= imagelocation %>">
                                     
                                         <div class="card-content">
@@ -19,7 +18,7 @@
                                             <p class="detail"><%= item.campus %></p>
                                         </div>
                                         <div class="card-footer padding-side-50">
-                                            <a href="view/<%= item.proj_id %>" class="btn btn-block btn-default text-white bg-green shadow-hover">
+                                            <a href="view?id=<%= item.proj_id %>" class="btn btn-block btn-default text-white bg-green shadow-hover">
                                                 <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">list</i>  View
                                             </a>
                                         </div>

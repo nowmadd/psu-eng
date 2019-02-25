@@ -1,0 +1,174 @@
+<% include ../partials/header %>
+
+<div class="bg-light2 padding-30">
+                                <div class="row">
+                                    
+                                    
+                                    <div class="col-100 tablet-35 desktop-35">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <p>Details</p>
+                                            </div>
+                                            <div class="card-content">
+                                                <p class="text">Project Name: <b><%= project.proj_name %></b></p>
+                                                <p class="text">Campus: <b><%= project.campus %></b></p>
+                                                <p class="text">Contractor: <b><%= project.contractor %></b></p>
+                                                <p class="text">Source of Fund: <b><%= project.src_fund %></b></p>
+                                                <p class="text">Initial Fund: <b><%= project.init_fund %></b></p>
+                                                <p class="text">Date Started: <b><%= project.start_date %></b></p>
+                                                <p class="text">Date Finished: <b><%= project.finish_date %></b></p>
+                                                <p class="text">Target Date: <b><%= project.target_date %></b></p>
+                                                <p class="text">Duration: <b><%= project.duration %></b></p>
+                                                <p class="text">Status: <b><%= project.status %></b></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="padding-30 row">
+                                
+                                <div class="card">
+                                    <div class="card-header">
+                                        <p>Progress</p>
+                                    </div>
+
+                                    
+                                    <div class="card-content">
+                                        <p>{{Math.round(building.progress)}}% Complete</p>
+                                        <div class="progress">
+                                          <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                   </div>
+                                </div>
+
+                                <div class="card">
+                                    
+                                    <div class="card-header">
+                                        <p>Activities</p>
+                                        <div v-if="(building.progress<100) && user.type=='admin'" class="align-right">
+                                            <button class="col button button-fill popup-open" data-popup="#newActivity">
+                                                <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">add_box</i> New Project Activity    
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-content">
+
+                                        <div class="data-table" style="margin: auto;">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                  <tr>
+                                                    <th style="witdh: 80%;">Activity Name</th>
+                                                    <th class="grid-25">Start Date</th>
+                                                    <th class="grid-25">Target Date</th>
+                                                    <th class="grid-25">Finished Date</th>
+                                                    <th class="grid-2">Progress</th>
+                                                    <th class="grid-25">Action</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                
+                                                <%  items.forEach(function(item, index){
+                                                  var datetime = new Date(item.start_date);
+                                                  var progress =  parseFloat(item.progress) * 100;
+                                                  var bold;
+                                                  if(item.text === 'PHASE 1' || 'PHASE 2' || 'PHASE 3') {
+                                                    var bold = true;
+                                                  } else {
+                                                    bold=false;
+                                                  } %>
+
+                                                  
+                                                  <tr>    
+                                                  <td style="width: 50%;">
+                                                  <%= item.text %>
+                                                  
+                                                  
+                                                  </td>
+                                                  <td style="width: 50%;"><%= datetime.getMonth() + "/" + datetime.getDate() + "/" + datetime.getFullYear(); %></td>
+                                                  <td style="width: 50%;"><%= %></td>
+                                                  <td style="width: 50%;"><%= %></td>
+                                                  <td style="width: 50%;"><%=  progress + '%'%></td>
+                                                  <td style="width: 50%;"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                                  UPDATE ACTIVITY
+                                                </button></td>
+                                                  
+                                                         
+                                                  </tr>
+                                              <%
+                                                 }); %>
+                                                  
+                                                  <tr>
+
+
+            
+                                                  
+
+
+                                                </tbody>
+                                                
+                                            </table>
+                                        </div>
+                                    
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  ...
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+  <p id="yy"style="display:none"><%= tasks %></p>
+
+  <div id="gantt_here" class="padding-20" style='width:97%; height:80%;'></div><BR><BR>
+
+
+
+  <script type="text/javascript">
+ 
+  var x= document.getElementById("yy").innerText
+ gantt.config.xml_date = "%Y-%m-%d %H:%i:%s";
+
+
+
+ gantt.config.columns = [
+  {name: "text", label: "Activity Name", tree: true, width: 300, "resize": true, min_width: 10},
+  {name: "start_date", align: "center", width: 90, "resize": true},
+  {name: "duration", align: "center", width: 80, "resize": true},
+  
+];
+
+
+
+
+	gantt.config.scale_height = 50;
+
+
+
+
+
+  gantt.init("gantt_here");
+  gantt.parse(x);
+  </script>
+  <% include ../partials/footer %>
+
+
