@@ -14,7 +14,7 @@ var db = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'psu_eng'
+  database: 'dbo_eng'
 });
 
 var port = 3000;

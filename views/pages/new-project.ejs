@@ -2,14 +2,25 @@
 
 <div class="padding-30 grid-9 center">
                     <div class="card">
+                          
                         <div class="card-header">
+
+                                <% if(msg===''){ %> 
+                                   
+                                 <%   }  else if (msg==='Successfull'){ %>
+                                    <div class="alert alert-success" role="alert">
+                                            The Project was added successfully.
+                                    </div>
+                            
+                                 <%   }%>
                             <p>New Project</p>
                             <p class="text">Fill in the following.</p>
                         </div>
 
                         <div class="card-content">
-                            <form id="file-form" action="/add-new" method="post">                                
-                                <div class="align-center grid-6">
+                            <form id="file-form" action="/add-new" method="post">  
+                                
+                                <!-- <div class="align-center grid-6">
                                     <img id="thumbnail" src="photos/default.jpg" class="round-corner" width="100%">
                                     <label>
                                         <a class="btn btn-default text-white bg-blue shadow-hover margin-10">
@@ -20,8 +31,8 @@
                                     </label>
                                     <p class="text text-blue" id="fileLabel"> </p>
                                     <p class="text">Upload a blueprint or a model for the project</p>
-                                </div>
-                                <div class="my-row">                                
+                                </div>   -->
+                                <div class="my-row">                              
                                     <div class="my-col-6">
                                         <label class="text">Project Name</label>
                                         <input required type="text" name="proj_name" placeholder="Enter project name.">
@@ -63,11 +74,11 @@
                                 <div class="my-row">                                
                                     <div class="my-col-4">
                                         <label class="text">Note to Proceed</label>
-                                        <input @input="getDuration(target_date,$event.target.value)" type="date" max="" :value="start_date" id="start_date" required name="start_date">
+                                        <input type="date" max="" id="start_date" required name="start_date">
                                     </div>
                                     <div class="my-col-4">
                                         <label class="text">Target Date</label>
-                                        <input @input="getDuration($event.target.value,start_date)" type="date" :min="start_date" required :value="target_date" name="target_date">
+                                        <input type="date" :min="start_date" required name="target_date">
                                     </div>
                                     <!--
                                     <div class="my-col-4">

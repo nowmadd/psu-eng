@@ -1,0 +1,56 @@
+<% include ../partials/header %><div style="padding-left:100px; padding-right: 100px;">
+<center><h2>UPDATE ACTIVITY</h2></center>
+
+
+<div class="row">
+                                    
+                                    
+        <div class="col">
+            <div class="card">
+              
+                <div class="card-content">
+                    <b>Project DETAILS</b>
+                    <p class="text">Project Name: <b><%= project.proj_name %></b></p>
+                    <p class="text">Date Started: <b><%= project.start_date %></b></p>
+                    <p class="text">Target Date: <b><%= project.target_date %></b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+<form action="/update-activity" method="post">  
+
+
+    <div class="form-group">
+      <label class="text">Activity Name</label>
+      <input required type="text" name="text" value="<%= items[0].text %>">
+    </div>
+    <div class="row">
+        <div class="col">
+        <label class="text">Start Date  (DD-MM-YYYY) </label>
+        <input required type="date" name="start_date" min="<%= project.start_date %>" value="<%= items[0].start_date %>">
+        </div>
+    <div class="col">
+        <label class="text">Target Date (DD-MM-YYYY) </label>
+        <input required type="date" name="target_date" min="<%= items[0].start_date %>" value="<%= items[0].target_date %>">
+   
+    </div>
+</div>
+
+    <div class="form-group">
+      
+    </div>
+
+    <div class="form-group">
+      <label class="text">Progress (%)</label>
+        <input required type="number" name="progress" max="100"value="<%= items[0].progressin100 %>">
+    </div>
+    <input type="hidden" value="<%= items[0].proj_id %>" name="id">
+    <input type="hidden" value="<%= items[0].final_id %>" name="final_id">
+    <button type="submit" class="btn btn-primary">UPDATE</button>
+</div><BR><BR>
+
+
+</div>
+</form>
+</div>
+<% include ../partials/footer %>

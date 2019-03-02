@@ -1,10 +1,26 @@
 <% include ../partials/header %>
-
+<% var percent %>
 <div class="bg-light2 padding-30">
+                                
+                           
+
+                            <div class="padding-30">
+
                                 <div class="row">
                                     
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <p>Image</p>
+                                              
+                                            </div>
+                                            <div class="card-content">
+                                                <img class="main_logo_img" style="height: 228px; width: 500px;"src="img/architect.jpg">
+                                            </div>
+                                        </div>
+                                    </div>
                                     
-                                    <div class="col-100 tablet-35 desktop-35">
+                                    <div class="col">
                                         <div class="card">
                                             <div class="card-header">
                                                 <p>Details</p>
@@ -24,20 +40,20 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="padding-30 row">
                                 
                                 <div class="card">
                                     <div class="card-header">
-                                        <p>Progress</p>
+                                        <p>Project Progress</p>
                                     </div>
 
                                     
                                     <div class="card-content">
-                                        <p>{{Math.round(building.progress)}}% Complete</p>
+                                        <p><% if(project.status ==="finished"){
+                                            percent = 100;
+                                          %> <%} else percent = 10;%> 
+                                          <%= percent; %>% Complete</p>
                                         <div class="progress">
-                                          <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                          <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <%= percent %>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                    </div>
                                 </div>
@@ -47,14 +63,322 @@
                                     <div class="card-header">
                                         <p>Activities</p>
                                         <div v-if="(building.progress<100) && user.type=='admin'" class="align-right">
-                                            <button class="col button button-fill popup-open" data-popup="#newActivity">
+                                            <button class=" button button-fill popup-open" data-popup="#newActivity">
                                                 <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">add_box</i> New Project Activity    
                                             </button>
                                         </div>
                                     </div>
 
-                                    <div class="card-content">
+                                        
 
+                                    <div class="card-content">
+                                        <h3>PHASE 1 ----------------------------------</h3>
+                                          <div class="data-table" style="margin: auto;">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="grid-50">Activity Name</th>
+                                                        <th class="grid-5">Start Date</th>
+                                                        <th class="grid-5">Target Date</th>
+                                                        <%if(project.status==="finished") { %>
+                                                          <th class="grid-5">Finished Date</th>
+                                                        
+                                                        <% } else { %>
+                                                          <th class="grid-5">Updated</th>
+
+                                                        <% }  %>
+                                                        
+                                                        <th class="grid-5">Progress</th>
+                                                        <th class="grid-10">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <%  items.forEach(function(item, index){
+                                                      var datetime = new Date(item.start_date);
+                                                      var progress =  parseFloat(item.progress) * 100;
+                                                      var bold;
+                                                      if(item.parent===1 || item.parent===10 || item.parent===5){ %>
+                                                        <tr> 
+                                                            <td style="width: 50%;">
+                                                            <%= item.text %>
+                                                            </td>
+                                                            <td style="width: 50%;"><%= item.start_date %></td>
+                                                            <td style="width: 50%;"><%= item.target %></td>
+                                                            <td style="width: 50%;"><%= item.update %></td>
+                                                            <td style="width: 50%;"><%=  progress + '%'%></td>
+                                                            <td style="width: 50%;">
+                                                            <% if(progress==100)  { %>
+                                                              <button type="button" class="btn btn-primary invisible" data-toggle="modal" data-target="#phase3">
+                                                                  UPDATE ACTIVITY
+                                                                </button>
+                                                              <span class="badge badge-pill text-white badge-success"><i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">check</i>Finished</span>
+                                                           
+                                                            <%} else {%>
+                                                              <div style="position: flex;">
+                                                                <div>   
+
+                                                                <a href="/edit-activity?id=<%= item.final_id %>"><button type="button" class="btn btn-primary">
+                                                                  UPDATE ACTIVITY
+                                                                </button></a>
+                                                               
+                                                                <a href="/finish?id=<%= item.final_id %>&proj_id=<%=item.proj_id%>" onclick="return confirm('Are you sure you want to set this job as FINISHED?')"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#finish">
+                                                                    FINISH 
+                                                                </button></a>
+                                                              
+
+                                                              
+
+
+                                                              </div>
+                                                              </div>
+                                                            <%}%>
+                                                            </td>
+                                                            
+                                                            
+                                                                
+                                                            </tr>
+                                                  <% }
+                                                     }); %>
+                                                </tbody>
+                                            </table>
+                                          </div>
+                                          <BR><BR>
+
+
+                                            <h3>PHASE 2 ----------------------------------</h3>
+                                            <div class="data-table" style="margin: auto;">
+                                              <table class="table table-striped">
+                                                  <thead>
+                                                      <tr>
+                                                          <th class="grid-50">Activity Name</th>
+                                                          <th class="grid-5">Start Date</th>
+                                                          <th class="grid-5">Target Date</th>
+                                                          <%if(project.status==="finished") { %>
+                                                            <th class="grid-5">Finished Date</th>
+                                                          
+                                                          <% } else { %>
+                                                            <th class="grid-5">Updated</th>
+
+                                                          <% }  %>
+                                                          
+                                                          <th class="grid-5">Progress</th>
+                                                          <th class="grid-10">Action</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    
+                                                    <%  items.forEach(function(item, index){
+                                                      var datetime = new Date(item.start_date);
+                                                      var progress =  parseFloat(item.progress) * 100;
+                                                      var bold;
+                                                      
+                                                      
+                                                        
+                                                      
+                                                      if(item.parent===12 || item.parent===13){ 
+                                                      
+                                                        %>
+                                                      
+                                                        <tr> 
+                                                            <td style="width: 50%;">
+                                                            <%= item.text %>
+                                                            </td>
+                                                            <td style="width: 50%;"><%= item.start_date %></td>
+                                                            <td style="width: 50%;"><%= item.target %></td>
+                                                            <td style="width: 50%;"><%= item.update %></td>
+                                                            <td style="width: 50%;"><%=  progress + '%'%></td>
+                                                            <td style="width: 50%;">
+                                                            <% if(progress==100)  { %>
+                                                              <button type="button" class="btn btn-primary invisible" data-toggle="modal" data-target="#phase3">
+                                                                  UPDATE ACTIVITY
+                                                                </button>
+                                                              <span class="badge badge-pill text-white badge-success"><i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">check</i>Finished</span>
+                                                           
+                                                            <%} else {%>
+                                                              <div style="position: flex;">
+                                                                <div>   
+
+                                                                <a href="/edit-activity?id=<%= item.final_id %>"><button type="button" class="btn btn-primary">
+                                                                  UPDATE ACTIVITY
+                                                                </button></a>
+                                                               
+                                                                <a href="/finish?id=<%= item.final_id %>&proj_id=<%=item.proj_id%>" onclick="return confirm('Are you sure you want to set this job as FINISHED?')"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#finish">
+                                                                    FINISH 
+                                                                </button></a>
+                                                              
+
+                                                              
+
+
+                                                              </div>
+                                                              </div>
+                                                            <%}%>
+                                                            </td>
+                                                            
+                                                            
+                                                                
+                                                            </tr>
+                                                  <% }
+                                                     }); %>
+                                                  </tbody>
+                                              </table>
+                                            </div>
+                                            <BR><BR>
+
+                                              <h3>PHASE 3 ----------------------------------</h3>
+                                              <div class="data-table" style="margin: auto;">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                          <th class="grid-50">Activity Name</th>
+                                                          <th class="grid-5">Start Date</th>
+                                                          <th class="grid-5">Target Date</th>
+                                                          <%if(project.status==="finished") { %>
+                                                            <th class="grid-5">Finished Date</th>
+                                                          
+                                                          <% } else { %>
+                                                            <th class="grid-5">Updated</th>
+
+                                                          <% }  %>
+                                                          
+                                                          <th class="grid-5">Progress</th>
+                                                          <th class="grid-10">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                          
+                                                    <%  items.forEach(function(item, index){
+                                                      
+                                                 
+                                                      var progress =  parseFloat(item.progress) * 100;
+                                                      var bold;
+                                                      if(item.parent===17){ %>
+                                                        <tr> 
+                                                            <td style="width: 50%;">
+                                                            <%= item.text %>
+                                                            </td>
+                                                            <td style="width: 50%;"><%= item.start_date %></td>
+                                                            <td style="width: 50%;"><%= item.target %></td>
+                                                            <td style="width: 50%;"><%= item.update %></td>
+                                                            <td style="width: 50%;"><%=  progress + '%'%></td>
+                                                            <td style="width: 50%;">
+                                                            <% if(progress==100)  { %>
+                                                              <button type="button" class="btn btn-primary invisible" data-toggle="modal" data-target="#phase3">
+                                                                  UPDATE ACTIVITY
+                                                                </button>
+                                                              <span class="badge badge-pill text-white badge-success"><i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">check</i>Finished</span>
+                                                           
+                                                            <%} else {%>
+                                                              <div style="position: flex;">
+                                                                <div>   
+
+                                                                <a href="/edit-activity?id=<%= item.final_id %>"><button type="button" class="btn btn-primary">
+                                                                  UPDATE ACTIVITY
+                                                                </button></a>
+                                                               
+                                                                <a href="/finish?id=<%= item.final_id %>&proj_id=<%=item.proj_id%>" onclick="return confirm('Are you sure you want to set this job as FINISHED?')"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#finish">
+                                                                    FINISH 
+                                                                </button></a>
+                                                              
+
+                                                              
+
+
+                                                              </div>
+                                                              </div>
+                                                            <%}%>
+                                                            </td>
+                                                            
+                                                            
+                                                                
+                                                            </tr>
+                                                  <% }
+                                                     }); %>
+                                                    </tbody>
+                                                </table>
+                                              </div>
+                                              <BR><BR>
+
+
+                                                <h3>PHASE 4 ----------------------------------</h3>
+                                                <div class="data-table" style="margin: auto;">
+                                                  <table class="table table-striped">
+                                                      <thead>
+                                                          <tr>
+                                                              <th class="grid-50">Activity Name</th>
+                                                              <th class="grid-5">Start Date</th>
+                                                              <th class="grid-5">Target Date</th>
+                                                              <%if(project.status==="finished") { %>
+                                                                <th class="grid-5">Finished Date</th>
+                                                              
+                                                              <% } else { %>
+                                                                <th class="grid-5">Updated</th>
+    
+                                                              <% }  %>
+                                                              
+                                                              <th class="grid-5">Progress</th>
+                                                              <th class="grid-10">Action</th>
+                                                          </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                         
+                                                    <%  items.forEach(function(item, index){
+                                                      var datetime = new Date(item.start_date);
+                                                      var progress =  parseFloat(item.progress) * 100;
+                                                      var bold;
+                                                      if(item.parent===22 || item.parent===21 || item.parent===26){ %>
+
+                                                        <tr> 
+                                                            <td style="width: 50%;">
+                                                            <%= item.text %>
+                                                            </td>
+                                                            <td style="width: 50%;"><%= item.start_date %></td>
+                                                            <td style="width: 50%;"><%= item.target %></td>
+                                                            <td style="width: 50%;"><%= item.update %></td>
+                                                            <td style="width: 50%;"><%=  progress + '%'%></td>
+                                                            <td style="width: 50%;">
+                                                            <% if(progress==100)  { %>
+                                                              <button type="button" class="btn btn-primary invisible" data-toggle="modal" data-target="#phase3">
+                                                                  UPDATE ACTIVITY
+                                                                </button>
+                                                              <span class="badge badge-pill text-white badge-success"><i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">check</i>Finished</span>
+                                                           
+                                                            <%} else {%>
+                                                              <div style="position: flex;">
+                                                                <div>   
+
+                                                                <a href="/edit-activity?id=<%= item.final_id %>"><button type="button" class="btn btn-primary">
+                                                                  UPDATE ACTIVITY
+                                                                </button></a>
+                                                               
+                                                                <a href="/finish?id=<%= item.final_id %>&proj_id=<%=item.proj_id%>" onclick="return confirm('Are you sure you want to set this job as FINISHED?')"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#finish">
+                                                                    FINISH 
+                                                                </button></a>
+                                                              
+
+                                                              
+
+
+                                                              </div>
+                                                              </div>
+                                                            <%}%>
+                                                            </td>
+                                                            
+                                                            
+                                                                
+                                                            </tr>
+                                                  <% }
+                                                     }); %>
+                                                            
+          
+                      
+                                                    
+      
+                                                      </tbody>
+                                                  </table>
+                                                </div>
+                                                <BR><BR>
+<!-- 
                                         <div class="data-table" style="margin: auto;">
                                             <table class="table table-striped">
                                                 <thead>
@@ -110,32 +434,14 @@
                                                 </tbody>
                                                 
                                             </table>
-                                        </div>
-                                    
+                                        </div> -->
+                                      </div>
                                     </div>
 
                                 </div>
                             </div>
 
-                            <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-                                  ...
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                            
 
   <p id="yy"style="display:none"><%= tasks %></p>
 
@@ -147,6 +453,7 @@
  
   var x= document.getElementById("yy").innerText
  gantt.config.xml_date = "%Y-%m-%d %H:%i:%s";
+ gantt.config.readonly= true;
 
 
 
