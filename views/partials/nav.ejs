@@ -24,6 +24,7 @@
               Finished Projects
           </a>
       </li>
+      <% if(usertype === 'admin') { %>
       <li v-if="user.type=='admin'">
           <a href="/add-new" class="text-white hover-white hover-text-blue" data-toggle="tooltip" data-placement="top" title="Add new Project">
               <i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">add_box</i>
@@ -31,11 +32,12 @@
           </a>
       </li>
       <li v-if="user.type=='admin'">
-          <a href="/users" class="text-white hover-white hover-text-blue" data-toggle="tooltip" data-placement="top" title="Users">
+          <a href="/add-user" class="text-white hover-white hover-text-blue" data-toggle="tooltip" data-placement="top" title="Users">
              <i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">group</i>
                Users
           </a>
       </li>
+      <% } %>
       <li>
           <div class="my-dropdown">
               <button class="dropbtn"> 

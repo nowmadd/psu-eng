@@ -1,0 +1,118 @@
+
+<% include ../partials/header %>
+  
+<form class="form-general" action="/add-user" method="post" style="padding:50px">
+    <% if(msg===''){ %> 
+                                   
+        <%   }  else if (msg==='Successfull'){ %>
+           <div class="alert alert-success" role="alert">
+                   The user was added successfully.
+           </div>
+   
+        <%   }%>
+    <div class="fullname-form">
+           
+            <div class="accountdetails">
+
+                
+                    <strong>Account Details</strong><div class="divider"></hr></div>
+                    
+                   
+                    
+                    <div class="row">
+                        <div class="form-label-group col">
+                                <label for="username">Username</label>
+                          <input type="text" name="username" id="username" class="form-control" placeholder="Username" required autofocus>
+                         
+                        </div>
+                  
+                        <div class="form-label-group col">
+                                <label for="inputPassword">Password</label>
+                          <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                   
+                          </div>
+                    </div>
+               
+                 </div>
+                  <hr class="my-4">
+
+        <strong>Personal Details</strong>
+        <div class="row">
+            <div class="form-label-group col">
+                    <label for="f_name">First Name</label>
+                <input type="text" name="f_name" id="f_name" class="form-control" placeholder="First Name" required autofocus>
+                
+            </div>
+            <div class="form-label-group col">
+                    <label for="m_name">Middle Name</label>
+                <input type="text" name="m_name" id="m_name" class="form-control" placeholder="Middle Name" required autofocus>
+              
+            </div>
+            <div class="form-label-group col">
+                    <label for="l_name">Last Name</label>
+                <input type="text" name="l_name" id="l_name" class="form-control" placeholder="Last Name" required autofocus>
+               
+            </div>
+        </div>
+        <BR>
+        <div class="row">
+            <div class="col">
+                <label class="text">Campus</label>
+                <select name="campus" required>
+                    <option>Lingayen</option>
+                    <option>Lingayen West</option>
+                    <option>Asingan</option>
+                    <option>Alaminos</option>
+                    <option>Bayambang</option>
+                    <option>Binmaley</option>
+                    <option>Infanta</option>
+                    <option>San Carlos</option>
+                    <option>Sta. Maria</option>
+                    <option>Urdaneta</option>
+                </select>
+            </div>
+
+
+            <div class="col">
+                    <label class="text">Usertype</label>
+                    <select name="type" required>
+                        <option value="admin">Admin</option>
+                        <option value="user">Standard User</option>
+                      
+                    </select>
+                </div>
+        </div>
+
+       
+        
+    </div>
+
+    <br>
+
+    
+    
+  
+  
+  
+    
+
+
+
+
+
+
+
+<!-- <div class="custom-control custom-checkbox mb-3">
+  <input type="checkbox" class="custom-control-input" id="customCheck1">
+  <label class="custom-control-label" for="customCheck1">Remember password</label>
+</div> -->
+<button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">SAVE ACCOUNT</button>
+<hr class="my-4">
+
+
+
+</form>
+
+
+
+<% include ../partials/footer %>

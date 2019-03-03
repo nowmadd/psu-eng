@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="card-content">
-                            <form>
+                            <form action="/login" method="post" >
                                 <div class="my-row">
                                     <!-- <span class="warning align-center">User doesn't exist!</span> -->
                                     <div class="my-col-12 group">
@@ -42,7 +42,7 @@
                                             <label>Password <i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">lock</i></label>
                                         </div>
                                         <div class="my-col-9">
-                                            <input  name="password" id="password" placeholder="Enter your password.">
+                                            <input  name="password" type="password" id="password" placeholder="Enter your password.">
                                             <!-- <span class="warning" v-if="invalidPassword">Incorrect Password!</span> -->
                                         </div>
                                     </div>
@@ -51,13 +51,13 @@
                                 <%  if(msg!==''){ %>
                                 <span class="warning" v-if="invalid ">Incorrect username or password!</span>
                                 <% } %>
-                            </form>
+                           
                             <br>
                             <p class="align-center text text-blue">No account? Contact admin for registration.</p>
                         </div>
                         <div class="card-footer">
-                            <div @click="login" class="button button-block bg-blue">Sign In <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">chevron_right</i></div>
-                        </div>
+                            <button type="submit" class="button button-block bg-blue">Sign In <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">chevron_right</i></button>
+                        </div> </form>
                     </div>
                 </div>
             </div>

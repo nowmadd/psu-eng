@@ -3,14 +3,14 @@
 <div class="card">
     <div class="card-header">
         <p>Profile</p>
-        <p class="text">{{user_account.username}}'s information</p>
+        <p class="text"><%= profile.username %>'s information</p>
     </div>
 
     <div class="card-content">
-        <p class="text"><b>Username:</b> {{user_account.username}}</p>
-        <p class="text"><b>Campus:</b> {{user_account.campus}}</p>
-        <p class="text"><b>Full Name:</b> {{user_account.f_name}} {{user_account.m_name}}. {{user_account.l_name}}</p>
-        <p class="text"><b>User Type:</b> {{user_account.type}}</p>
+        <p class="text"><b>Username:</b> <%= profile.username %></p>
+        <p class="text"><b>Campus:</b> <%= profile.campus %></p>
+        <p class="text"><b>Full Name:</b> <%= profile.f_name +  ' ' +profile.m_name + ' ' +profile.l_name %></p>
+        <p class="text"><b>User Type:</b> <%= profile.type %></p>
     </div>
 </div>
 </div> 

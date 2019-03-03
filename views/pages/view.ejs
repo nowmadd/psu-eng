@@ -50,12 +50,18 @@
                                     <div class="card-content">
                                         <p><% if(project.status ==="finished"){
                                             percent = 100;
-                                          %> <%} else percent = 10;%> 
+                                          %> <%} else percent = parseInt(parseFloat(project.progress_ave).toFixed(1) * 100);%> 
                                           <%= percent; %>% Complete</p>
                                         <div class="progress">
                                           <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <%= percent %>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
+                                        <% if(project.status === 'ongoing' && percent === 100) { %>
+                                        <div>
+                                          This project is ready to be finished.
+                                        </div>
+                                        <%  } %>
                                    </div>
+                                   
                                 </div>
 
                                 <div class="card">
@@ -63,9 +69,14 @@
                                     <div class="card-header">
                                         <p>Activities</p>
                                         <div v-if="(building.progress<100) && user.type=='admin'" class="align-right">
-                                            <button class=" button button-fill popup-open" data-popup="#newActivity">
+
+
+                                          <% if(project.status==="ongoing"){ %>
+                                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addActivity">
                                                 <i class="material-icons" style="position:relative; top:7px;margin-top:-12px;">add_box</i> New Project Activity    
                                             </button>
+
+                                          <% } %>
                                         </div>
                                     </div>
 
@@ -84,7 +95,7 @@
                                                           <th class="grid-5">Finished Date</th>
                                                         
                                                         <% } else { %>
-                                                          <th class="grid-5">Updated</th>
+                                                          <th class="grid-5">Last Update</th>
 
                                                         <% }  %>
                                                         
@@ -157,7 +168,7 @@
                                                             <th class="grid-5">Finished Date</th>
                                                           
                                                           <% } else { %>
-                                                            <th class="grid-5">Updated</th>
+                                                            <th class="grid-5">Last Update</th>
 
                                                           <% }  %>
                                                           
@@ -237,7 +248,7 @@
                                                             <th class="grid-5">Finished Date</th>
                                                           
                                                           <% } else { %>
-                                                            <th class="grid-5">Updated</th>
+                                                            <th class="grid-5">Last Update</th>
 
                                                           <% }  %>
                                                           
@@ -312,7 +323,7 @@
                                                                 <th class="grid-5">Finished Date</th>
                                                               
                                                               <% } else { %>
-                                                                <th class="grid-5">Updated</th>
+                                                                <th class="grid-5">Last Update</th>
     
                                                               <% }  %>
                                                               
@@ -439,6 +450,55 @@
                                     </div>
 
                                 </div>
+                            </div>
+
+                          <div class="modal" id="addActivity" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Add New Activity</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form  action="/add-activity" method="post">
+                                      <div class="form-group">
+                                        <label for="name">Activity Title</label>
+                                        <input  required type="text" name="text"class="form-control" id="name" aria-describedby="name" placeholder="">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="start_date">Start Date</label>
+                                        <input required type="date" name="start_date" class="form-control" min="<%= project.start_date %>" id="start_date" placeholder="">
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label for="target_date">Target Date</label>
+                                        <input  required type="date" name="target_date" class="form-control" min="<%= project.start_date %>" id="target_date" placeholder="">
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label for="parent">Phase</label>
+                                        <select name="parent" required>
+                                            <option value="1">PHASE 1</option>
+                                            <option value="12">PHASE 2</option>
+                                            <option value="17">PHASE 3</option>
+                                            <option value="21">PHASE 4</option>
+                                        </select>
+                                      </div>
+                                      <input type="hidden" name="proj_id" value="<%= project.proj_id %>">
+
+
+
+
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                  </div>
+                                </form>
+                                </div>
+                              </div>
                             </div>
 
                             
