@@ -18,8 +18,18 @@
                         </div>
 
                         <div class="card-content">
-                            <form id="file-form" action="/add-new" method="post">  
+                            <form id="file-form" action="/add-new"  enctype="multipart/form-data" accept="image/*" method="post">  
+                                <label>Upload Image</label>
                                 
+                                <img id='img-upload' name='img-upload'/>    
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <span class="btn btn-default btn-file">
+                                            Browse… <input type="file" id="imgInp" name="model_img"  required>
+                                        </span>
+                                    </span>
+                                    <input type="text" class="form-control"   readonly>
+                                </div>    
                                 <!-- <div class="align-center grid-6">
                                     <img id="thumbnail" src="photos/default.jpg" class="round-corner" width="100%">
                                     <label>
@@ -92,8 +102,5 @@
                         </div>
 
                     </div>
-                </div>              
-
-
-
+                </div>  
 <% include ../partials/footer %>

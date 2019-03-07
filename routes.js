@@ -2,6 +2,11 @@ const express = require("express");
 const func = require('./func/functions');
 var session = require('express-session');
 var moment = require('moment');
+var multer  = require('multer')
+
+
+
+
 moment().format();
 
 require("date-format-lite");
@@ -13,6 +18,7 @@ router.use(session({
   resave: false,
   saveUninitialized: true
 }))
+
 
 
 const mysql = require('mysql');
@@ -89,10 +95,16 @@ router.get('/add-new', authenticate, function (req, res) {
 
 
 
-router.post('/add-new', authenticate, function (req, res) {
-  try {
+router.post('/add-new', function (req, res) {
+  
+    
     req.body.status = 'ongoing';
-    req.body.model_img = 'photos/activity/1/gallery_1_1547099728.png';
+     req.body.model_img= 'photos/proj_image' + req.body.model_img;
+ 
+
+    
+   
+   
     var start_date = moment(req.body.start_date).format('YYYY-MM-DD');
     con.query('INSERT INTO projects SET ?', req.body, function (error, results, fields) {
       if (error) throw error;
@@ -132,11 +144,16 @@ router.post('/add-new', authenticate, function (req, res) {
       con.query(activites, function (error, result, fields) {
         if (error) {throw error;
         } else {
-        res.render('pages/new-project', {
-          msg: 'Successfull',
-      
-      
-        });
+
+ 
+
+        
+              res.render('pages/new-project', {
+                msg: 'Successfull',
+              });
+         
+
+        
       }
 
         
@@ -145,10 +162,10 @@ router.post('/add-new', authenticate, function (req, res) {
 
     });
 
-  } catch {
+  // } catch {
 
-    res.redirect('*');
-  }
+  //   res.redirect('*');
+  // }
   
 });
 
