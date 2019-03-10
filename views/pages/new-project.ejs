@@ -18,18 +18,31 @@
                         </div>
 
                         <div class="card-content">
-                            <form id="file-form" action="/add-new"  enctype="multipart/form-data" accept="image/*" method="post">  
-                                <label>Upload Image</label>
+                            <form id="file-form" action="/add-new"  enctype="multipart/form-data"  method="post">  
+                                <!-- <label>Upload Image</label>
                                 
                                 <img id='img-upload' name='img-upload'/>    
                                 <div class="input-group">
                                     <span class="input-group-btn">
                                         <span class="btn btn-default btn-file">
-                                            Browse… <input type="file" id="imgInp" name="model_img"  required>
+                                            Browse… <input type="file" id="imgInp" name="model_img"  accept="image/*" required>
                                         </span>
                                     </span>
                                     <input type="text" class="form-control"   readonly>
-                                </div>    
+                                </div>     -->
+
+                                <div class="custom-file-container" data-upload-id="myUniqueUploadId">
+                                        <label>Upload File <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">&times;</a></label>
+                             
+                                        <label class="custom-file-container__custom-file" >
+                                            <input type="file" class="custom-file-container__custom-file__custom-file-input" accept="*" name="model_img"  required aria-label="Choose File">
+                                          
+                                            <span class="custom-file-container__custom-file__custom-file-control"></span>
+                                        </label>
+                                        <div class="custom-file-container__image-preview"></div>
+                                    </div>
+                             
+
                                 <!-- <div class="align-center grid-6">
                                     <img id="thumbnail" src="photos/default.jpg" class="round-corner" width="100%">
                                     <label>

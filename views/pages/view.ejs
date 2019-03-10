@@ -15,7 +15,7 @@
                                               
                                             </div>
                                             <div class="card-content">
-                                                <img class="main_logo_img" style="height: 228px; width: 500px;"src="../../<%= project.model_img %>">
+                                                <img class="img-fluid" style="height: 228px; width: 500px;"src="../../<%= project.model_img %>">
                                             </div>
                                         </div>
                                     </div>
@@ -100,7 +100,7 @@
                                                         <% }  %>
                                                         
                                                         <th class="grid-5">Progress</th>
-                                                        <th class="grid-10">Action</th>
+                                                        <th class="grid-10">Status</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -119,11 +119,14 @@
                                                             <td style="width: 50%;"><%=  progress + '%'%></td>
                                                             <td style="width: 50%;">
                                                             <% if(progress==100)  { %>
-                                                              <button type="button" class="btn btn-primary invisible" data-toggle="modal" data-target="#phase3">
+                                                              <button type="button" class="btn btn-primary hidden" data-toggle="modal" data-target="#phase3">
                                                                   UPDATE ACTIVITY
                                                                 </button>
-                                                              <span class="badge badge-pill text-white badge-success"><i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">check</i>Finished</span>
-                                                           
+                                                                <span class="badge badge-pill text-white badge-success"><i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">check</i>Finished</span>
+                                                                
+                                                                <% if(item.overdue) { %>
+                                                                <span class="badge badge-pill text-white badge-danger"><i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">alarm</i>Overdue</span>
+                                                                <% } %>
                                                             <%} else {%>
                                                               <div style="position: flex;">
                                                                 <div>   
@@ -173,7 +176,7 @@
                                                           <% }  %>
                                                           
                                                           <th class="grid-5">Progress</th>
-                                                          <th class="grid-10">Action</th>
+                                                          <th class="grid-10">Status</th>
                                                       </tr>
                                                   </thead>
                                                   <tbody>
@@ -200,11 +203,14 @@
                                                             <td style="width: 50%;"><%=  progress + '%'%></td>
                                                             <td style="width: 50%;">
                                                             <% if(progress==100)  { %>
-                                                              <button type="button" class="btn btn-primary invisible" data-toggle="modal" data-target="#phase3">
+                                                              <button type="button" class="btn btn-primary hidden" data-toggle="modal" data-target="#phase3">
                                                                   UPDATE ACTIVITY
                                                                 </button>
-                                                              <span class="badge badge-pill text-white badge-success"><i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">check</i>Finished</span>
-                                                           
+                                                                <span class="badge badge-pill text-white badge-success"><i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">check</i>Finished</span>
+                                                                
+                                                                <% if(item.overdue) { %>
+                                                                <span class="badge badge-pill text-white badge-danger"><i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">alarm</i>Overdue</span>
+                                                                <% } %>
                                                             <%} else {%>
                                                               <div style="position: flex;">
                                                                 <div>   
@@ -253,7 +259,7 @@
                                                           <% }  %>
                                                           
                                                           <th class="grid-5">Progress</th>
-                                                          <th class="grid-10">Action</th>
+                                                          <th class="grid-10">Status</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -274,11 +280,14 @@
                                                             <td style="width: 50%;"><%=  progress + '%'%></td>
                                                             <td style="width: 50%;">
                                                             <% if(progress==100)  { %>
-                                                              <button type="button" class="btn btn-primary invisible" data-toggle="modal" data-target="#phase3">
+                                                              <button type="button" class="btn btn-primary hidden" data-toggle="modal" data-target="#phase3">
                                                                   UPDATE ACTIVITY
                                                                 </button>
-                                                              <span class="badge badge-pill text-white badge-success"><i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">check</i>Finished</span>
-                                                           
+                                                                <span class="badge badge-pill text-white badge-success"><i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">check</i>Finished</span>
+                                                                
+                                                                <% if(item.overdue) { %>
+                                                                <span class="badge badge-pill text-white badge-danger"><i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">alarm</i>Overdue</span>
+                                                                <% } %>
                                                             <%} else {%>
                                                               <div style="position: flex;">
                                                                 <div>   
@@ -328,7 +337,7 @@
                                                               <% }  %>
                                                               
                                                               <th class="grid-5">Progress</th>
-                                                              <th class="grid-10">Action</th>
+                                                              <th class="grid-10">Status</th>
                                                           </tr>
                                                       </thead>
                                                       <tbody>
@@ -349,11 +358,14 @@
                                                             <td style="width: 50%;"><%=  progress + '%'%></td>
                                                             <td style="width: 50%;">
                                                             <% if(progress==100)  { %>
-                                                              <button type="button" class="btn btn-primary invisible" data-toggle="modal" data-target="#phase3">
+                                                              <button type="button" class="btn btn-primary hidden" data-toggle="modal" data-target="#phase3">
                                                                   UPDATE ACTIVITY
                                                                 </button>
-                                                              <span class="badge badge-pill text-white badge-success"><i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">check</i>Finished</span>
-                                                           
+                                                                <span class="badge badge-pill text-white badge-success"><i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">check</i>Finished</span>
+                                                                
+                                                                <% if(item.overdue) { %>
+                                                                <span class="badge badge-pill text-white badge-danger"><i class="material-icons" style="position:relative; top:7px;margin-top:-10px;">alarm</i>Overdue</span>
+                                                                <% } %>
                                                             <%} else {%>
                                                               <div style="position: flex;">
                                                                 <div>   
@@ -462,7 +474,7 @@
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <form  action="/add-activity" method="post">
+                                      <form  action="/add-activity" method="post">
                                       <div class="form-group">
                                         <label for="name">Activity Title</label>
                                         <input  required type="text" name="text"class="form-control" id="name" aria-describedby="name" placeholder="">

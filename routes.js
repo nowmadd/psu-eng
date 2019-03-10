@@ -2,7 +2,21 @@ const express = require("express");
 const func = require('./func/functions');
 var session = require('express-session');
 var moment = require('moment');
-var multer  = require('multer')
+var multer  = require('multer');
+
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'photos/proj_image/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '.jpg') //Appending .jpg
+  }
+})
+
+var upload = multer({ storage: storage });
+
+
 
 
 
@@ -95,11 +109,12 @@ router.get('/add-new', authenticate, function (req, res) {
 
 
 
-router.post('/add-new', function (req, res) {
+router.post('/add-new', upload.single('model_img'),  function (req, res) {
   
-    
+   
     req.body.status = 'ongoing';
-     req.body.model_img= 'photos/proj_image' + req.body.model_img;
+     req.body.model_img = 'photos/proj_image/' + req.file.filename;
+     req.body.duration = moment(req.body.target_date).diff(moment(req.body.start_date), 'days');
  
 
     
@@ -110,36 +125,36 @@ router.post('/add-new', function (req, res) {
       if (error) throw error;
     
       var proj_id = results.insertId;
-      const activites = "INSERT INTO gantt_tasks VALUES ('', '1', 'PHASE 1', '"+start_date+"', '', '1', '0', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '2', 'CLEARING WORKS', '"+start_date+"', '', '', '1', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '3', 'EXCAVATION AND BACK FILL', '"+start_date+"', '', '', '1', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '4', 'REINFORCING STILLBARS', '"+start_date+"', '', '', '1', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '5', 'CONCRETE WORKS', '"+start_date+"', '', '', '1', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '6', 'a. FOOTING', '"+start_date+"', '', '', '5', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '7', 'b. COLUMN', '"+start_date+"',  '', '', '5', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '6', 'c. FOOTING TIEBEAM', '"+start_date+"', '', '', '5', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '7', 'd. FLOOR SLAB', '"+start_date+"', '', '', '5', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '8', 'e. BEAM', '"+start_date+"','', '', '5', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '9', 'FORM WORKS', '"+start_date+"', '', '', '1', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '10', 'MANSONRY WORKS', '"+start_date+"', '', '', '1', '"+proj_id+"', '');"+ 
-      "INSERT INTO gantt_tasks VALUES ('', '11', 'a. EXTERIOR AND INTERIOR WALLS', '"+start_date+"', '', '', '10', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '12', 'PHASE 2', '"+start_date+"',  '', '1', '0', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '13', 'STEEL WORKS', '"+start_date+"',  '', '', '12', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '14', 'STEEL TRUSS', '"+start_date+"',  '', '', '13', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '15', 'ROOFING WORKS', '"+start_date+"',  '', '', '12', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '16', 'PLASTERING', '"+start_date+"',  '', '', '12', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '17', 'PHASE 3', '"+start_date+"', '', '1', '0', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '18', 'TILE WORKS', '"+start_date+"', '', '', '17', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '19', 'PAINTING WORKS', '"+start_date+"',  '', '', '17', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '20', 'CEILING WORKS', '"+start_date+"',  '', '', '17', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '21', 'PHASE 4', '"+start_date+"',  '', '1', '0', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '22', 'ELECTRICAL WORKS', '"+start_date+"',  '', '', '21', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '23', 'a. LIGHTING WORKS', '"+start_date+"', '', '', '22', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '24', 'b.POWER LAYOUT', '"+start_date+"', '', '', '22', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '25', 'c. MECHANICAL LAYOUT', '"+start_date+"',  '', '', '22', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '26', 'PLUMBING WORKS', '"+start_date+"',  '', '', '21', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '27', 'a. SANITARY', '"+start_date+"',  '', '', '26', '"+proj_id+"', '');"+
-      "INSERT INTO gantt_tasks VALUES ('', '28', 'b. WATER LAYOUT', '"+start_date+"',  '', '', '26', '"+proj_id+"', '');"
+      const activites = "INSERT INTO gantt_tasks VALUES ('', '1', 'PHASE 1', '"+start_date+"', '', '1', '0', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '2', 'CLEARING WORKS', '"+start_date+"', '', '', '1', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '3', 'EXCAVATION AND BACK FILL', '"+start_date+"', '', '', '1', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '4', 'REINFORCING STILLBARS', '"+start_date+"', '', '', '1', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '5', 'CONCRETE WORKS', '"+start_date+"', '', '', '1', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '6', 'a. FOOTING', '"+start_date+"', '', '', '5', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '7', 'b. COLUMN', '"+start_date+"',  '', '', '5', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '6', 'c. FOOTING TIEBEAM', '"+start_date+"', '', '', '5', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '7', 'd. FLOOR SLAB', '"+start_date+"', '', '', '5', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '8', 'e. BEAM', '"+start_date+"','', '', '5', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '9', 'FORM WORKS', '"+start_date+"', '', '', '1', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '10', 'MANSONRY WORKS', '"+start_date+"', '', '', '1', '"+proj_id+"', '','photos/default.jpg');"+ 
+      "INSERT INTO gantt_tasks VALUES ('', '11', 'a. EXTERIOR AND INTERIOR WALLS', '"+start_date+"', '', '', '10', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '12', 'PHASE 2', '"+start_date+"',  '', '1', '0', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '13', 'STEEL WORKS', '"+start_date+"',  '', '', '12', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '14', 'STEEL TRUSS', '"+start_date+"',  '', '', '13', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '15', 'ROOFING WORKS', '"+start_date+"',  '', '', '12', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '16', 'PLASTERING', '"+start_date+"',  '', '', '12', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '17', 'PHASE 3', '"+start_date+"', '', '1', '0', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '18', 'TILE WORKS', '"+start_date+"', '', '', '17', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '19', 'PAINTING WORKS', '"+start_date+"',  '', '', '17', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '20', 'CEILING WORKS', '"+start_date+"',  '', '', '17', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '21', 'PHASE 4', '"+start_date+"',  '', '1', '0', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '22', 'ELECTRICAL WORKS', '"+start_date+"',  '', '', '21', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '23', 'a. LIGHTING WORKS', '"+start_date+"', '', '', '22', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '24', 'b.POWER LAYOUT', '"+start_date+"', '', '', '22', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '25', 'c. MECHANICAL LAYOUT', '"+start_date+"',  '', '', '22', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '26', 'PLUMBING WORKS', '"+start_date+"',  '', '', '21', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '27', 'a. SANITARY', '"+start_date+"',  '', '', '26', '"+proj_id+"', '', 'photos/default.jpg');"+
+      "INSERT INTO gantt_tasks VALUES ('', '28', 'b. WATER LAYOUT', '"+start_date+"',  '', '', '26', '"+proj_id+"', '', 'photos/default.jpg');"
       
       con.query(activites, function (error, result, fields) {
         if (error) {throw error;
@@ -284,12 +299,23 @@ router.get('/view', authenticate, function (req, res) {
                     "data": JSON.parse(results)
                   }
                   for (var i = 0; i < task.data.length; i++) {
+
+                  
+
                     var date = moment(task.data[i].start_date).format('YYYY-MM-DD hh:mm:ss');
                     task.data[i].start_date = date;
                     // console.log(task.data[i].target);
                     task.data[i].open = true;
                            
                   }
+                  
+                  for(var i = 0; i < result.length; i++){
+                    var isOverdue    = (moment(result[i].target) < moment(result[i].update))? true : false;
+                    result[i].overdue = isOverdue;
+                  }
+                  console.log(project);
+
+                  
     
                  
                   //task.data[i].target = moment(task.data[i].start_date, 'YYYY-MM-DD').add(10, 'days').format('YYYY-MM-DD');
@@ -341,9 +367,10 @@ router.get('/edit-activity',authenticate, function(req, res){
           result[0].start_date = moment(result[0].start_date).format('YYYY-MM-DD');
           result[0].target_date = moment(result[0].start_date).add(result[0].duration, 'days').format('YYYY-MM-DD');
           result[0].progressin100 = (result[0].progress === "0") ? 0 : result[0].progress * 100 ;
+          
 
-          con.query("SELECT proj_name , start_date, target_date from projects WHERE proj_id = ?", result[0].proj_id, function (err, projectresult){
-            
+          con.query("SELECT proj_id, proj_name , start_date, target_date from projects WHERE proj_id = ?", result[0].proj_id, function (err, projectresult){
+            console.log(projectresult[0]);
             res.render('pages/edit_activity', {
               project: projectresult[0],
               id: req.query.id,
@@ -365,13 +392,17 @@ router.get('/edit-activity',authenticate, function(req, res){
 
 
 
-router.post('/update-activity',authenticate, function (req,res){
+router.post('/update-activity',upload.single('activity_img'),authenticate, function (req,res){
+
+  req.body.model_img = 'photos/proj_image/' + req.file.filename;
+
   var id = req.body.final_id;
+
   var progress = parseFloat(req.body.progress * .01);
   var updated = moment().format('YYYY-MM-DD')
   var duration = moment(req.body.target_date).diff(moment(req.body.start_date), 'days');
   try{
-  con.query("UPDATE gantt_tasks SET progress='"+progress+"', updated = '"+ updated+"',text='"+req.body.text+"', duration='"+duration+"',start_date ='"+req.body.start_date+"' WHERE final_id='"+id+"'", function (err, result) {
+  con.query("UPDATE gantt_tasks SET progress='"+progress+"', updated = '"+ updated+"',text='"+req.body.text+"', duration='"+duration+"',start_date ='"+req.body.start_date+"', activity_img = '"+ req.body.model_img+"' WHERE final_id='"+id+"'", function (err, result) {
     
   
     res.redirect('/view?id=' + req.body.id);
@@ -402,14 +433,14 @@ router.get('/finish', authenticate,function (req, res) {
 });
 
 
-router.post('/add-activity',authenticate, function (req, res) {
+router.post('/add-activity', authenticate,  function (req, res) {
   try{
 
     con.query("SELECT COUNT(id) As id FROM gantt_tasks WHERE proj_id= '"+req.body.proj_id+"'", function(err, result){
       var next_id = result[0].id + 1;
 
 
-        con.query("INSERT INTO gantt_tasks VALUES ('', '"+ next_id +"', '"+ req.body.text+"', '"+req.body.start_date+"', '', '', '"+req.body.parent+"', '"+req.body.proj_id+"', '');", req.body, function (err, result) {
+        con.query("INSERT INTO gantt_tasks VALUES ('', '"+ next_id +"', '"+ req.body.text+"', '"+req.body.start_date+"', '', '', '"+req.body.parent+"', '"+req.body.proj_id+"', '', 'photos/default.jpg');", req.body, function (err, result) {
           res.redirect('/view?id=' + req.body.proj_id);
         });
     });
