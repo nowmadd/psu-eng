@@ -40,6 +40,38 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+
+                                <div class="card">
+                                  <div class="card-header">
+                                      <p>Gallery</p>
+                                  </div>
+                                  
+                                  <div class="card-content">
+                                  <div class="row-gallery">
+
+                                      <% if(gallery.length > 0) { gallery.forEach(function(image, index){ %>
+
+                                        <a href="#img<%= index %>"> <div class="column" style="padding: 1px;">
+                                      <img src="../../<%= image.dir %>" class="hover-shadow">
+                                    </div></a>
+
+                                    <a href="#_" class="lightbox" id="img<%=index %>">
+                                        <img src="../../<%= image.dir %>">
+                                      </a>    
+                                    <%}); }%>
+                                  </div>
+
+
+
+                                  </div>
+                                  
+                                 
+                               </div>
+
+
+
                                 
                                 <div class="card">
                                     <div class="card-header">
@@ -513,6 +545,35 @@
                               </div>
                             </div>
 
+
+                            <div id="myModal" class="modal-gallery">
+                                <span class="close cursor" onclick="closeModal()">&times;</span>
+                                <div class="modal-gallery-content">
+                              
+                                    <% if(gallery.length > 0) { gallery.forEach(function(image, index){ %>
+                                    <div class="mySlides">
+                                    <div class="numbertext"> <%= index %></div>
+                                    <img src="../../<%= image.dir %>" style="width:100%">
+                                    </div>
+                                    <% }); } %>
+                              
+                                  <!-- Next/previous controls -->
+                                  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                                  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                              
+                                  <!-- Caption text -->
+                                  <div class="caption-container">
+                                    
+                                  </div>
+                                  <% if(gallery.length > 0) { gallery.forEach(function(image, index){ %>
+                                  <!-- Thumbnail image controls -->
+                                  <div class="column">
+                                    <img class="demo" src="../../<%= image.dir %>" onclick="currentSlide(index)">
+                                  </div>
+                                  <% }); } %>
+                                </div>
+                              </div>
+
                             
 
   <p id="yy"style="display:none"><%= tasks %></p>
@@ -548,6 +609,49 @@
   gantt.init("gantt_here");
   gantt.parse(x);
   </script>
+
+<script>
+    // Open the Modal
+    function openModal() {
+      document.getElementById('myModal').style.display = "block";
+    }
+    
+    // Close the Modal
+    function closeModal() {
+      document.getElementById('myModal').style.display = "none";
+    }
+    
+    var slideIndex = 1;
+    showSlides(slideIndex);
+    
+    // Next/previous controls
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+    
+    // Thumbnail image controls
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+    
+    function showSlides(n) {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("demo");
+      var captionText = document.getElementById("caption");
+      if (n > slides.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " active";
+      captionText.innerHTML = dots[slideIndex-1].alt;
+    }
+    </script>
   <% include ../partials/footer %>
 
 
