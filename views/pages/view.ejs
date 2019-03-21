@@ -140,7 +140,7 @@
                                                       var datetime = new Date(item.start_date);
                                                       var progress =  parseFloat(item.progress) * 100;
                                                       var bold;
-                                                      if(item.parent===1 || item.parent===10 || item.parent===5){ %>
+                                                      if(item.parent===1 || item.parent===10 || item.parent===5 || item.id ===1){ %>
                                                         <tr> 
                                                             <td style="width: 50%;">
                                                             <%= item.text %>
@@ -221,7 +221,7 @@
                                                       
                                                         
                                                       
-                                                      if(item.parent===12 || item.parent===13){ 
+                                                      if(item.parent===12 || item.parent===13 || item.id === 12){ 
                                                       
                                                         %>
                                                       
@@ -301,7 +301,7 @@
                                                  
                                                       var progress =  parseFloat(item.progress) * 100;
                                                       var bold;
-                                                      if(item.parent===17){ %>
+                                                      if(item.parent===17 || item.id ===17){ %>
                                                         <tr> 
                                                             <td style="width: 50%;">
                                                             <%= item.text %>
@@ -378,7 +378,7 @@
                                                       var datetime = new Date(item.start_date);
                                                       var progress =  parseFloat(item.progress) * 100;
                                                       var bold;
-                                                      if(item.parent===22 || item.parent===21 || item.parent===26){ %>
+                                                      if(item.parent===22 || item.parent===21 || item.parent===26 || item.id===21){ %>
 
                                                         <tr> 
                                                             <td style="width: 50%;">
