@@ -114,7 +114,7 @@ router.post('/add-new', upload.single('model_img'), function (req, res) {
 
     var proj_id = results.insertId;
     //auto add activities
-    const activites = "INSERT INTO gantt_tasks VALUES ('dito', '1', 'PHASE 1', '" + start_date + "', '', '1', '0', '" + proj_id + "', '', 'photos/default.jpg');" +
+    const activites = "INSERT INTO gantt_tasks VALUES ('', '1', 'PHASE 1', '" + start_date + "', '', '1', '0', '" + proj_id + "', '', 'photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '2', 'CLEARING WORKS', '" + start_date + "', '', '', '1', '" + proj_id + "', '', 'photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '3', 'EXCAVATION AND BACK FILL', '" + start_date + "', '', '', '1', '" + proj_id + "', '', 'photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '4', 'REINFORCING STILLBARS', '" + start_date + "', '', '', '1', '" + proj_id + "', '', 'photos/default.jpg');" +
