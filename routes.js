@@ -114,7 +114,7 @@ router.post('/add-new', upload.single('model_img'), function (req, res) {
 
     var proj_id = results.insertId;
     //auto add activities
-    const activites = "INSERT INTO gantt_tasks VALUES ('', '1', 'PHASE 1', '" + start_date + "', '', '1', '0', '" + proj_id + "', '', 'photos/default.jpg');" +
+    const activites = "INSERT INTO gantt_tasks VALUES ('', '1', 'PHASE 1', '" + start_date + "', '', '', '0', '" + proj_id + "', '', 'photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '2', 'CLEARING WORKS', '" + start_date + "', '', '', '1', '" + proj_id + "', '', 'photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '3', 'EXCAVATION AND BACK FILL', '" + start_date + "', '', '', '1', '" + proj_id + "', '', 'photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '4', 'REINFORCING STILLBARS', '" + start_date + "', '', '', '1', '" + proj_id + "', '', 'photos/default.jpg');" +
@@ -127,16 +127,16 @@ router.post('/add-new', upload.single('model_img'), function (req, res) {
       "INSERT INTO gantt_tasks VALUES ('', '9', 'FORM WORKS', '" + start_date + "', '', '', '1', '" + proj_id + "', '', 'photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '10', 'MANSONRY WORKS', '" + start_date + "', '', '', '1', '" + proj_id + "', '','photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '11', 'a. EXTERIOR AND INTERIOR WALLS', '" + start_date + "', '', '', '10', '" + proj_id + "', '', 'photos/default.jpg');" +
-      "INSERT INTO gantt_tasks VALUES ('', '12', 'PHASE 2', '" + start_date + "',  '', '1', '0', '" + proj_id + "', '', 'photos/default.jpg');" +
+      "INSERT INTO gantt_tasks VALUES ('', '12', 'PHASE 2', '" + start_date + "',  '', '', '0', '" + proj_id + "', '', 'photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '13', 'STEEL WORKS', '" + start_date + "',  '', '', '12', '" + proj_id + "', '', 'photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '14', 'STEEL TRUSS', '" + start_date + "',  '', '', '13', '" + proj_id + "', '', 'photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '15', 'ROOFING WORKS', '" + start_date + "',  '', '', '12', '" + proj_id + "', '', 'photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '16', 'PLASTERING', '" + start_date + "',  '', '', '12', '" + proj_id + "', '', 'photos/default.jpg');" +
-      "INSERT INTO gantt_tasks VALUES ('', '17', 'PHASE 3', '" + start_date + "', '', '1', '0', '" + proj_id + "', '', 'photos/default.jpg');" +
+      "INSERT INTO gantt_tasks VALUES ('', '17', 'PHASE 3', '" + start_date + "', '', '', '0', '" + proj_id + "', '', 'photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '18', 'TILE WORKS', '" + start_date + "', '', '', '17', '" + proj_id + "', '', 'photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '19', 'PAINTING WORKS', '" + start_date + "',  '', '', '17', '" + proj_id + "', '', 'photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '20', 'CEILING WORKS', '" + start_date + "',  '', '', '17', '" + proj_id + "', '', 'photos/default.jpg');" +
-      "INSERT INTO gantt_tasks VALUES ('', '21', 'PHASE 4', '" + start_date + "',  '', '1', '0', '" + proj_id + "', '', 'photos/default.jpg');" +
+      "INSERT INTO gantt_tasks VALUES ('', '21', 'PHASE 4', '" + start_date + "',  '', '', '0', '" + proj_id + "', '', 'photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '22', 'ELECTRICAL WORKS', '" + start_date + "',  '', '', '21', '" + proj_id + "', '', 'photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '23', 'a. LIGHTING WORKS', '" + start_date + "', '', '', '22', '" + proj_id + "', '', 'photos/default.jpg');" +
       "INSERT INTO gantt_tasks VALUES ('', '24', 'b.POWER LAYOUT', '" + start_date + "', '', '', '22', '" + proj_id + "', '', 'photos/default.jpg');" +
