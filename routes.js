@@ -264,24 +264,38 @@ router.get('/view', authenticate, function (req, res) {
 
                 var date = moment(task.data[i].start_date).format('YYYY-MM-DD hh:mm:ss');
                 task.data[i].start_date = date;
-                // console.log(task.data[i].target);
+
+                
                 task.data[i].open = true;
 
+              }
+
+              for(var i = 0; i <13; i++){
+                task.data[i].color = 'red';
+              }
+
+              for(var i = 18; i <22; i++){
+                task.data[i].color = 'green';
+              }
+
+              for(var i = 22; i <30; i++){
+                task.data[i].color = 'orange';
               }
 
               for (var i = 0; i < result.length; i++) {
                 var isOverdue = (moment(result[i].target) < moment(result[i].update)) ? true : false;
                 result[i].overdue = isOverdue;
               }
-              console.log(project);
-
+              
+              
               var stringified = JSON.stringify(task);
+
 
               try {
 
                 con.query("UPDATE projects SET progress='" + parseFloat(project.rounded * 100).toFixed(1) + "' WHERE proj_id='" + project.proj_id + "'", function (err, update_result) {
                   con.query("SELECT * from gallery WHERE proj_id = ?", proj_id, function(err, gallery_result) {
-                    console.log(gallery_result)
+
                     res.render('pages/view', {
                       gallery: gallery_result,
                       items: result,
@@ -316,7 +330,7 @@ router.get('/edit-activity', authenticate, function (req, res) {
       result[0].progressin100 = (result[0].progress === "0") ? 0 : result[0].progress * 100;
 
       con.query("SELECT proj_id, proj_name , start_date, target_date from projects WHERE proj_id = ?", result[0].proj_id, function (err, projectresult) {
-        console.log(projectresult[0]);
+
         res.render('pages/edit_activity', {
           project: projectresult[0],
           id: req.query.id,
